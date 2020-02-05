@@ -1,27 +1,30 @@
-# SpartaXdn
+# Spartacus + xdn-router configuration
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
+This is an experimental configuration of Spartacus and xdn-router. More about the two here:
 
-## Development server
+- Spartacus <https://github.com/SAP/cloud-commerce-spartacus-storefront>
+- XDN <https://www.moovweb.com/faq>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Usage
 
-## Code scaffolding
+1. Build Spartacus SSR
+   `$ yarn build:ssr`
+2. Start the server
+   `$ yarn serve:ssr`
+3. Start the xdn router server
+   `$ node server.js`
+4. Test - open <http://localhost:3000>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## What's going on
 
-## Build
+XDN is a _CDN as code_ provided by [MOOVWEB](https://www.moovweb.com/). It let's you control caching mechanism programmatically.
+To use it we set up an [Express](https://expressjs.com/) server that renders Spartacus app (listening on localhost:3002). Then we set up the xdn-router in front of it (listening on localhost:3000), so that it calls Spartacus and is able to cache it.
+We can configure the caching mechanism in `router.js`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## What's next
 
-## Running unit tests
+This is a PoC (Proof of Concept) that it is possible to deploy Spartacus or plain Angular apps to MOOVWEB XDN. However, it requires some extra development to be production ready.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Acknowledgements
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Thanks to [Mark Brocato](https://github.com/markbrocato) for helping out with this setup.
